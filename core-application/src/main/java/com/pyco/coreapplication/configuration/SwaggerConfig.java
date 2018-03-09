@@ -16,11 +16,13 @@ import java.util.Collections;
 @EnableSwagger2
 public class SwaggerConfig {
 
+     static final String ENDPOINT_PACKAGE_NAME = "com.pyco.coreapplication.endpoint";
+
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage(ENDPOINT_PACKAGE_NAME))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
@@ -28,11 +30,11 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfo(
-                "My REST API",
-                "Some custom description of API.",
-                "API TOS",
+                "TODO LIST REST API",
+                "Rest API for customer to create todo of their own",
+                "API V1",
                 "Terms of service",
-                new Contact("John Doe", "www.example.com", "myeaddress@company.com"),
-                "License of API", "API license URL", Collections.emptyList());
+                new Contact("Pham Tien Dat", "www.todolist.com", "todolist@company.com"),
+                "Todo List License", "todo-list-license.com", Collections.emptyList());
     }
 }
