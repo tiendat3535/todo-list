@@ -1,0 +1,25 @@
+#mongodb
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: todo-li
+
+#server port
+server:
+  port: 8001
+
+#username
+username: person
+
+#password
+password: 123456
+
+#kafka config
+kafka:
+  bootstrap-servers: localhost:9092
+
+#config log4j
+logging:
+  file: log/core-application-test-log.log

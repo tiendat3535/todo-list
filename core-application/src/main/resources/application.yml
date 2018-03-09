@@ -1,0 +1,24 @@
+#mongodb
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27000
+      database: todo-li
+
+#server port
+server:
+  port: 8001
+
+#kafka config
+kafka:
+  bootstrap-servers: localhost:9092
+
+#config log4j
+logging:
+  file: log/core-application-log.log
+
+#secret key
+encrypt:
+  secret-key: todo-list-pyco
+  salt: 4156b002dd560afe
