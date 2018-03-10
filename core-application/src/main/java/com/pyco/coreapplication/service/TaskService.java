@@ -14,9 +14,10 @@ public interface TaskService {
      * Get all Tasks that a Person has
      * @param taskCriteria {@link TaskCriteria} including personId, content, startDate, endDate
      * @param pageable The {@link Pageable} Spring Data use to apply pagination and sorting
+     * @param fields Fields user want to take
      * @return {@link List <Task>} that a Person has
      */
-    Page<Task> findAllTasksOfPerson(TaskCriteria taskCriteria, Pageable pageable);
+    Page<Task> findAllTasksOfPerson(TaskCriteria taskCriteria, Pageable pageable, String[] fields);
 
     /**
      *

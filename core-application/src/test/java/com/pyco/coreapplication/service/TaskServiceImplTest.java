@@ -1,7 +1,6 @@
 package com.pyco.coreapplication.service;
 
 import com.google.common.collect.Lists;
-import com.pyco.coreapplication.CoreApplication;
 import com.pyco.coreapplication.common.BaseTest;
 import com.pyco.coreapplication.configuration.WebSecurityConfigTest;
 import com.pyco.coreapplication.doimain.Person;
@@ -10,24 +9,18 @@ import com.pyco.coreapplication.dto.TaskCriteria;
 import com.pyco.coreapplication.repository.PersonRepository;
 import com.pyco.coreapplication.repository.TaskRepository;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -48,16 +41,23 @@ public class TaskServiceImplTest extends BaseTest {
     @WithUserDetails("person")
     public void testFindAllTasksOfPerson() {
         List<Task> savedTasks = taskRepository.save(Lists.newArrayList(
-                taskService.createTask(new Task("task1")),
-                taskService.createTask(new Task("task2")),
-                taskService.createTask(new Task("task3"))
+                createTask("task1"),
+                createTask("task2"),
+                createTask("task3")
         ));
 
-        Page<Task> allTasksOfPerson = taskService.findAllTasksOfPerson(new TaskCriteria(), new PageRequest(0, 20));
+        TaskCriteria taskCriteria = new TaskCriteria();
+        taskCriteria.setPersonId(getLoggedInPersonId());
+        String[] fields = {"id"};
+
+        Page<Task> allTasksOfPerson = taskService.findAllTasksOfPerson(taskCriteria, new PageRequest(0, 20), fields);
 
         savedTasks.forEach(task -> {
-            boolean isTaskExist = allTasksOfPerson.getContent().stream().anyMatch(t -> Objects.equals(t.getId(), task.getId()));
-            assertThat(isTaskExist).isTrue();
+            Optional<Task> foundTask = allTasksOfPerson.getContent().stream().filter(t -> Objects.equals(t.getId(), task.getId())).findFirst();
+            assertThat(foundTask.isPresent()).isTrue();
+            assertThat(foundTask.get().getContent()).isNull();
+            assertThat(foundTask.get().getCreatedDate()).isNull();
+            assertThat(foundTask.get().getPersonId()).isNull();
         });
 
     }
@@ -66,8 +66,7 @@ public class TaskServiceImplTest extends BaseTest {
     @WithUserDetails("person")
     public void testCreateTask() {
         // Given
-        Task task = new Task();
-        task.setContent("content");
+        Task task = new Task("content", getLoggedInPersonId());
         // Then
         Task createdTask = taskService.createTask(task);
         // When
@@ -96,9 +95,9 @@ public class TaskServiceImplTest extends BaseTest {
     @WithUserDetails("person")
     public void testUpdateTask() {
         // Given
-        Task task = new Task();
-        task.setContent("content");
+        Task task = new Task("content", getLoggedInPersonId());
         Task createdTask = taskService.createTask(task);
+
         createdTask.setContent("updatedContent");
         createdTask.setDone(true);
         // When
@@ -112,10 +111,18 @@ public class TaskServiceImplTest extends BaseTest {
     @WithUserDetails("person")
     public void testDeleteTask() {
         // Given
-        Task task = new Task();
-        task.setContent("content");
-        Task createdTask = taskService.createTask(task);
+        Task task = createTask("content");
         // When
         taskService.deleteTask(task.getId());
+    }
+
+    private Task createTask(String content) {
+        Task task = new Task(content, getLoggedInPersonId());
+        Task createdTask = taskService.createTask(task);
+        return createdTask;
+    }
+
+    private String getLoggedInPersonId() {
+        return ((Person) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 }

@@ -7,8 +7,8 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import java.util.Optional;
 
-public interface PersonRepository extends MongoRepository<Person, String>, QueryDslPredicateExecutor<Person> {
+public interface PersonRepository extends MongoRepository<Person, String> {
 
-    public Optional<Person> findByUsername(String username);
+    Optional<Person> findByUsername(String username);
 
 }

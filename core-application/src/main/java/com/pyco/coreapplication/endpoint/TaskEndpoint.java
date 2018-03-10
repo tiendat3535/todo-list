@@ -1,5 +1,6 @@
 package com.pyco.coreapplication.endpoint;
 
+import com.pyco.coreapplication.doimain.Person;
 import com.pyco.coreapplication.doimain.Task;
 import com.pyco.coreapplication.dto.TaskCriteria;
 import com.pyco.coreapplication.dto.TaskDto;
@@ -11,6 +12,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +27,11 @@ public class TaskEndpoint {
 
     @GetMapping("todos")
     public Page<TaskDto> getTodos(Pageable pageable,
+                               @RequestParam(value = "fields", required = false) String[] fields,
                                @RequestParam(value = "content", required = false) String content,
                                @RequestParam(value = "startDate", required = false) LocalDate startDate,
                                @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-        return taskService.findAllTasksOfPerson(new TaskCriteria(content, startDate, endDate), pageable)
+        return taskService.findAllTasksOfPerson(new TaskCriteria(getLoggedInPersonId(), content, startDate, endDate), pageable, fields)
                 .map(TaskMapper.INSTANCE::toTaskDto);
     }
 
@@ -36,6 +39,7 @@ public class TaskEndpoint {
     @ResponseStatus(HttpStatus.CREATED)
     public TaskDto createTodo(@Validated @RequestBody TaskDto taskDto) {
         Task task = TaskDtoMapper.INSTANCE.toTask(taskDto);
+        task.setPersonId(getLoggedInPersonId());
         return TaskMapper.INSTANCE.toTaskDto(taskService.createTask(task));
     }
 
@@ -51,6 +55,11 @@ public class TaskEndpoint {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTodo(@PathVariable("taskId") String taskId) {
         taskService.deleteTask(taskId);
+    }
+
+
+    private String getLoggedInPersonId() {
+        return ((Person) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
     }
 
 }

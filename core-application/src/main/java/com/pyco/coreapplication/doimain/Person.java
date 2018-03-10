@@ -1,6 +1,5 @@
 package com.pyco.coreapplication.doimain;
 
-import com.querydsl.core.annotations.QueryEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -14,7 +13,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@QueryEntity
 @Document
 public class Person extends BaseEntity implements UserDetails {
 

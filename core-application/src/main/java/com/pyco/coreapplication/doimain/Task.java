@@ -1,6 +1,5 @@
 package com.pyco.coreapplication.doimain;
 
-import com.querydsl.core.annotations.QueryEntity;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-@QueryEntity
 @Document
 public class Task extends BaseEntity {
 
@@ -24,6 +22,11 @@ public class Task extends BaseEntity {
 
     public Task(String content) {
         this.content = content;
+    }
+
+    public Task(String content, String personId) {
+        this.content = content;
+        this.personId = personId;
     }
 
     public Task(String content, boolean done, String personId) {
