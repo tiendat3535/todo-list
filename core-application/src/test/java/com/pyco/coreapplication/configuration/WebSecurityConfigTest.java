@@ -1,6 +1,6 @@
 package com.pyco.coreapplication.configuration;
 
-import com.pyco.coreapplication.doimain.Person;
+import com.pyco.coreapplication.domain.Person;
 import com.pyco.coreapplication.repository.PersonRepository;
 import com.pyco.coreapplication.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 

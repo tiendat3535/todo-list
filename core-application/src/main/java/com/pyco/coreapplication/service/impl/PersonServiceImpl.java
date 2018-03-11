@@ -2,7 +2,7 @@ package com.pyco.coreapplication.service.impl;
 
 import com.pyco.coreapplication.exception.UserAlreadyExistsException;
 import com.pyco.coreapplication.repository.PersonRepository;
-import com.pyco.coreapplication.doimain.Person;
+import com.pyco.coreapplication.domain.Person;
 import com.pyco.coreapplication.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

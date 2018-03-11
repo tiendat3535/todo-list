@@ -24,7 +24,7 @@ public class WebServiceTodoController {
 
     private static final String FAIL_TOLERANCE_MESSAGE = "Core Application has been down during the call creation of taskDto.";
     private static final String MORE_INFO_MESSAGE = "Please contact admin with errorId to know more information.";
-    // The encrypted encryptedUsername of 'dat' when this webservice make an authenciation request to core-application
+    // The encrypted username of 'dat' when this webservice make an authenciation request to core-application
     // the core-aplication will send this token to this webservice but now that feature has not been implemented
     // just hard code it here
     public static final String ENCRYPTED_USERNAME = "8aec7eb756d17f27f67fec929ce1ce6b3121ee031ffe579f6565bb5999aec1ed";

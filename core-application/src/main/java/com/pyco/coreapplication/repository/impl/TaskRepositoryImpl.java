@@ -1,6 +1,6 @@
 package com.pyco.coreapplication.repository.impl;
 
-import com.pyco.coreapplication.doimain.Task;
+import com.pyco.coreapplication.domain.Task;
 import com.pyco.coreapplication.dto.TaskCriteria;
 import com.pyco.coreapplication.repository.TaskRepositoryCustom;
 import org.apache.commons.lang3.ArrayUtils;
@@ -18,16 +18,20 @@ import java.util.Optional;
 @Repository
 public class TaskRepositoryImpl implements TaskRepositoryCustom {
 
+    private static final String PERSON_ID_FIELD = "personId";
+    public static final String CONTENT_FIELD = "content";
+    public static final String CREATED_DATE_FIELD = "createdDate";
+
     @Autowired
     private MongoOperations mongoOperations;
 
     @Override
     public Page<Task> findAllByTaskCriteriaWithPagingSortingProjection(TaskCriteria taskCriteria, Pageable pageable, String[] fields) {
 
-        Criteria criteria = Criteria.where("personId").is(taskCriteria.getPersonId());
-        taskCriteria.getContent().ifPresent(content ->  criteria.andOperator(Criteria.where("content").regex(content)));
-        taskCriteria.getStartDate().ifPresent(startDate ->  criteria.andOperator(Criteria.where("createdDate").gte(startDate)));
-        taskCriteria.getEndDate().ifPresent(endDate ->  criteria.andOperator(Criteria.where("createdDate").lte(endDate)));
+        Criteria criteria = Criteria.where(PERSON_ID_FIELD).is(taskCriteria.getPersonId());
+        taskCriteria.getContent().ifPresent(content ->  criteria.andOperator(Criteria.where(CONTENT_FIELD).regex(content)));
+        taskCriteria.getStartDate().ifPresent(startDate ->  criteria.andOperator(Criteria.where(CREATED_DATE_FIELD).gte(startDate)));
+        taskCriteria.getEndDate().ifPresent(endDate ->  criteria.andOperator(Criteria.where(CREATED_DATE_FIELD).lte(endDate)));
 
         Query query = new Query();
         query.addCriteria(criteria).with(pageable);

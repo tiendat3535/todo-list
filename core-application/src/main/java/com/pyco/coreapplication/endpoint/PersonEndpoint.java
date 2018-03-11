@@ -1,7 +1,7 @@
 package com.pyco.coreapplication.endpoint;
 
 import com.pyco.coreapplication.exception.UserAlreadyExistsException;
-import com.pyco.coreapplication.doimain.Person;
+import com.pyco.coreapplication.domain.Person;
 import com.pyco.coreapplication.dto.ErrorDto;
 import com.pyco.coreapplication.dto.UserDto;
 import com.pyco.coreapplication.mapper.PersonMapper;

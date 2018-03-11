@@ -1,6 +1,6 @@
 package com.pyco.coreapplication.event;
 
-import com.pyco.coreapplication.doimain.Task;
+import com.pyco.coreapplication.domain.Task;
 import com.pyco.coreapplication.dto.TaskDtoPayLoad;
 import com.pyco.coreapplication.mapper.TaskDtoMapper;
 import com.pyco.coreapplication.service.TaskService;

@@ -1,6 +1,6 @@
 package com.pyco.coreapplication.service;
 
-import com.pyco.coreapplication.doimain.Task;
+import com.pyco.coreapplication.domain.Task;
 import com.pyco.coreapplication.dto.TaskCriteria;
 import com.pyco.coreapplication.exception.PersonNotFoundException;
 import org.springframework.data.domain.Page;

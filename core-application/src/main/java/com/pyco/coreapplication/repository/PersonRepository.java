@@ -1,9 +1,8 @@
 package com.pyco.coreapplication.repository;
 
 
-import com.pyco.coreapplication.doimain.Person;
+import com.pyco.coreapplication.domain.Person;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 
 import java.util.Optional;
 

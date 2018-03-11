@@ -1,6 +1,6 @@
 package com.pyco.coreapplication.repository;
 
-import com.pyco.coreapplication.doimain.Task;
+import com.pyco.coreapplication.domain.Task;
 import com.pyco.coreapplication.dto.TaskCriteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

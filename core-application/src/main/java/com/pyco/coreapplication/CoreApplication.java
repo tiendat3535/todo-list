@@ -1,7 +1,7 @@
 package com.pyco.coreapplication;
 
 import com.pyco.coreapplication.configuration.WebSecurityConfig;
-import com.pyco.coreapplication.doimain.Person;
+import com.pyco.coreapplication.domain.Person;
 import com.pyco.coreapplication.endpoint.PersonEndpoint;
 import com.pyco.coreapplication.event.TodoEventHandler;
 import com.pyco.coreapplication.global.GlobalHandleExceptionHandler;
@@ -10,10 +10,8 @@ import com.pyco.coreapplication.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.crypto.password.PasswordEncoder;

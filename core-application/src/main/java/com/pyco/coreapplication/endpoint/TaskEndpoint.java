@@ -1,14 +1,15 @@
 package com.pyco.coreapplication.endpoint;
 
-import com.pyco.coreapplication.doimain.Person;
-import com.pyco.coreapplication.doimain.Task;
+import com.pyco.coreapplication.common.Constants;
+import com.pyco.coreapplication.domain.Person;
+import com.pyco.coreapplication.domain.Task;
 import com.pyco.coreapplication.dto.TaskCriteria;
 import com.pyco.coreapplication.dto.TaskDto;
 import com.pyco.coreapplication.mapper.TaskDtoMapper;
 import com.pyco.coreapplication.mapper.TaskMapper;
 import com.pyco.coreapplication.service.TaskService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -27,12 +28,16 @@ public class TaskEndpoint {
 
     @GetMapping("todos")
     public Page<TaskDto> getTodos(Pageable pageable,
-                               @RequestParam(value = "fields", required = false) String[] fields,
+                               @RequestParam(value = "fields", required = false) String fields,
                                @RequestParam(value = "content", required = false) String content,
                                @RequestParam(value = "startDate", required = false) LocalDate startDate,
                                @RequestParam(value = "endDate", required = false) LocalDate endDate) {
-        return taskService.findAllTasksOfPerson(new TaskCriteria(getLoggedInPersonId(), content, startDate, endDate), pageable, fields)
-                .map(TaskMapper.INSTANCE::toTaskDto);
+        return taskService.findAllTasksOfPerson(
+                                new TaskCriteria(getLoggedInPersonId(), content, startDate, endDate),
+                                pageable,
+                                StringUtils.split(fields, Constants.COMMA_SEPARATOR)
+                            )
+                            .map(TaskMapper.INSTANCE::toTaskDto);
     }
 
     @PostMapping("todos")

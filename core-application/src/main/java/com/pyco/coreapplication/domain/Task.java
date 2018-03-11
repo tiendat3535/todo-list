@@ -1,4 +1,4 @@
-package com.pyco.coreapplication.doimain;
+package com.pyco.coreapplication.domain;
 
 import lombok.Getter;
 import lombok.Setter;

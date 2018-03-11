@@ -1,7 +1,7 @@
 package com.pyco.coreapplication.service.impl;
 
-import com.pyco.coreapplication.doimain.Person;
-import com.pyco.coreapplication.doimain.Task;
+import com.pyco.coreapplication.domain.Person;
+import com.pyco.coreapplication.domain.Task;
 import com.pyco.coreapplication.dto.TaskCriteria;
 import com.pyco.coreapplication.exception.PersonNotFoundException;
 import com.pyco.coreapplication.repository.PersonRepository;
