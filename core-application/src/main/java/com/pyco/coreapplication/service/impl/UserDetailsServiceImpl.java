@@ -1,7 +1,7 @@
 package com.pyco.coreapplication.service.impl;
 
 import com.pyco.coreapplication.repository.PersonRepository;
-import com.pyco.coreapplication.doimain.Person;
+import com.pyco.coreapplication.domain.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

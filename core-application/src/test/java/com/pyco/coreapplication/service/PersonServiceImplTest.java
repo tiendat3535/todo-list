@@ -1,7 +1,7 @@
 package com.pyco.coreapplication.service;
 
 import com.pyco.coreapplication.common.BaseTest;
-import com.pyco.coreapplication.doimain.Person;
+import com.pyco.coreapplication.domain.Person;
 import com.pyco.coreapplication.exception.UserAlreadyExistsException;
 import com.pyco.coreapplication.repository.PersonRepository;
 import org.junit.After;

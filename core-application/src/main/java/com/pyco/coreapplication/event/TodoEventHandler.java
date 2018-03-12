@@ -1,13 +1,11 @@
 package com.pyco.coreapplication.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pyco.coreapplication.doimain.Task;
 import com.pyco.coreapplication.dto.KafkaTaskDto;
-import com.pyco.coreapplication.dto.TaskDto;
 import com.pyco.coreapplication.dto.KafkaPayLoad;
+import com.pyco.coreapplication.domain.Task;
 import com.pyco.coreapplication.mapper.TaskDtoMapper;
 import com.pyco.coreapplication.service.TaskService;
-import org.apache.commons.lang3.SerializationUtils;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
