@@ -1,6 +1,6 @@
 package com.pyco.webservice.configuration;
 
-import dto.TaskDtoPayLoad;
+import dto.KafkaPayLoad;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,13 +35,13 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, TaskDtoPayLoad> producerFactory() {
-        return new DefaultKafkaProducerFactory<String, TaskDtoPayLoad>(producerConfigs());
+    public ProducerFactory<String, KafkaPayLoad> producerFactory() {
+        return new DefaultKafkaProducerFactory<String, KafkaPayLoad>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, TaskDtoPayLoad> kafkaTemplate() {
-        return new KafkaTemplate<String, TaskDtoPayLoad>(producerFactory());
+    public KafkaTemplate<String, KafkaPayLoad> kafkaTemplate() {
+        return new KafkaTemplate<String, KafkaPayLoad>(producerFactory());
     }
 
 }

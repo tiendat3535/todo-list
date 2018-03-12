@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TaskDtoPayLoad {
+public class KafkaTaskDto {
     String encryptedUsername;
     TaskDto taskDto;
 }

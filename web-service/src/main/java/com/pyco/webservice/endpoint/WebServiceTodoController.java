@@ -3,8 +3,9 @@ package com.pyco.webservice.endpoint;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.pyco.webservice.util.ErrorUtil;
 import dto.ErrorDto;
+import dto.KafkaPayLoad;
+import dto.KafkaTaskDto;
 import dto.TaskDto;
-import dto.TaskDtoPayLoad;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class WebServiceTodoController {
     private RestTemplate restTemplate;
 
     @Autowired
-    private KafkaTemplate<String, TaskDtoPayLoad> kafkaTemplate;
+    private KafkaTemplate<String, KafkaPayLoad> kafkaTemplate;
 
     @Value("${kafka.topic.create-task-dto}")
     private String createTaskDtoTopic;
@@ -56,8 +57,8 @@ public class WebServiceTodoController {
     @PostMapping("kafka/todos")
     @ResponseStatus(HttpStatus.OK)
     public String createTodoWithKafka(@Validated @RequestBody TaskDto taskDto) {
-        TaskDtoPayLoad taskDtoPayLoad = new TaskDtoPayLoad(ENCRYPTED_USERNAME, taskDto);
-        kafkaTemplate.send(createTaskDtoTopic, taskDtoPayLoad);
+        KafkaPayLoad<KafkaTaskDto> kafkaPayLoad = new KafkaPayLoad(new KafkaTaskDto(ENCRYPTED_USERNAME, taskDto));
+        kafkaTemplate.send(createTaskDtoTopic, kafkaPayLoad);
         return REQUEST_CREATE_TASK_MESSAGE;
     }
 }
