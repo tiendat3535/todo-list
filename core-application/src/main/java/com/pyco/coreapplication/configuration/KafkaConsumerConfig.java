@@ -1,6 +1,6 @@
 package com.pyco.coreapplication.configuration;
 
-import com.pyco.coreapplication.dto.TaskDtoPayLoad;
+import com.pyco.coreapplication.dto.KafkaPayLoad;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +33,7 @@ public class KafkaConsumerConfig {
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
-                StringDeserializer.class);
+                JsonDeserializer.class);
         // allows a pool of processes to divide the work of consuming and processing records
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "helloworld");
         // automatically reset the offset to the earliest offset
@@ -43,16 +43,16 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConsumerFactory<String, TaskDtoPayLoad> consumerFactory() {
+    public ConsumerFactory<String, KafkaPayLoad> consumerFactory() {
         return new DefaultKafkaConsumerFactory<>(
                 consumerConfigs(),
                 new StringDeserializer(),
-                new JsonDeserializer<>(TaskDtoPayLoad.class));
+                new JsonDeserializer<>(KafkaPayLoad.class));
     }
 
     @Bean
-    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, TaskDtoPayLoad>> kafkaListenerContainerFactory() {
-        ConcurrentKafkaListenerContainerFactory<String, TaskDtoPayLoad> factory =
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<String, KafkaPayLoad>> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, KafkaPayLoad> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
 
