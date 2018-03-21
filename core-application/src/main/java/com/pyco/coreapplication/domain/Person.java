@@ -1,6 +1,7 @@
 package com.pyco.coreapplication.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Document
 public class Person extends BaseEntity implements UserDetails {
 
@@ -24,9 +26,6 @@ public class Person extends BaseEntity implements UserDetails {
     private String password;
 
     private List<GrantedAuthority> grantedAuthorities;
-
-    public Person() {
-    }
 
     public Person(String username, String password) {
         this.username = username;

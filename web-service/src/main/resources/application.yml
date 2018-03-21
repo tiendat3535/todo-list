@@ -6,7 +6,7 @@ server:
 kafka:
   bootstrap-servers: localhost:9092
   topic:
-    create-task-dto: createTaskDto.t
+    create-task-dto: createTaskDto
 
 #core-application url
 core:

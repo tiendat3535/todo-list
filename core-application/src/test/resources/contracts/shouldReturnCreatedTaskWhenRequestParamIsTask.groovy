@@ -8,7 +8,7 @@ Contract.make {
             contentType(applicationJson())
         }
         url "/v1/private/todos"
-        body (file("sendTask.json"))
+        body (file("sentTask.json"))
     }
     response {
         status 201

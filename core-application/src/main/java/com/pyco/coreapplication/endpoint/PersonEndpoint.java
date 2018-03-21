@@ -25,7 +25,7 @@ import java.util.UUID;
 @RequestMapping("v1/public")
 public class PersonEndpoint {
 
-    public static final String USERNAME_ALREADY_EXISTS_USER_MESSAGE = "This encryptedUsername: %s has already existed. Please choose another one.";
+    public static final String USERNAME_ALREADY_EXISTS_USER_MESSAGE = "This username: %s has already existed. Please choose another one.";
     private static Logger logger = LoggerFactory.getLogger(PersonEndpoint.class);
 
     @Autowired

@@ -1,6 +1,7 @@
 package com.pyco.coreapplication.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Document
 public class Task extends BaseEntity {
 
@@ -16,9 +18,6 @@ public class Task extends BaseEntity {
     private boolean done;
     @NotNull
     private String personId;
-
-    public Task() {
-    }
 
     public Task(String content) {
         this.content = content;

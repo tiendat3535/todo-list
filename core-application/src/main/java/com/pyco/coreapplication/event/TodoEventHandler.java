@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class TodoEventHandler {
 
-    public static final String CREATE_TASK_DTO_TOPIC = "createTaskDto.t";
+    public static final String CREATE_TASK_DTO_TOPIC = "createTaskDto";
 
     @Autowired
     private TaskService taskService;
